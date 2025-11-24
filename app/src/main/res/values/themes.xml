@@ -1,9 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.SiWASIP" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="android:fontFamily">@font/rem_regular</item>
+
+        <!-- warna lama masih boleh, walau di M3 lebih pakai colorScheme -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/wasis_pr80</item>
+        <item name="colorAccent">@color/wasis_pr60</item>
+
+        <!-- Status bar & nav bar -->
+        <item name="android:statusBarColor">@color/wasis_pr60</item>
+        <item name="android:navigationBarColor">@color/wasis_nt80</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- MATIIN indikator ungu BottomNavigationView bawaan M3 -->
+        <item name="bottomNavigationStyle">@style/Siwasip.BottomNavigation</item>
     </style>
 
+    <!-- Custom style untuk BottomNavigationView -->
+    <style name="Siwasip.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/Siwasip.BottomNav.NoIndicator</item>
+    </style>
+
+    <!-- Style indikator kosong (transparent) -->
+    <style name="Siwasip.BottomNav.NoIndicator" parent="">
+        <item name="android:width">0dp</item>
+        <item name="android:height">0dp</item>
+        <item name="android:color">@android:color/transparent</item>
+    </style>
+
+    <!-- Theme utama yang dipakai di AndroidManifest -->
     <style name="Theme.SiWASIP" parent="Base.Theme.SiWASIP" />
+
 </resources>

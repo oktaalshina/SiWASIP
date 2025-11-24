@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="wasis_pr00">#EEF0E8</color>
+    <color name="wasis_pr40">#A7B590</color>
+    <color name="wasis_pr60">#6E8649</color>
+    <color name="wasis_pr80">#42502C</color>
+
+    <color name="wasis_nt80">#FFFFFF</color>
+
+    <color name="brand">#4B7034</color>
+    <color name="brand_ink">#FFFFFF</color>
+
+    <color name="border">#E5E7EB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="muted">#F8FAFC</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>
