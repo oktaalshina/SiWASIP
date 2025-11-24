@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wasis_pr00">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- ========= MODE LIHAT ========= -->
+        <LinearLayout
+            android:id="@+id/viewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/txtProfileTitleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Edit Profil"
+                android:textColor="@color/wasis_pr80"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Avatar -->
+            <ImageView
+                android:id="@+id/imgAvatarView"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@android:drawable/ic_menu_myplaces"
+                app:tint="@android:color/black"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Username -->
+            <TextView
+                android:id="@+id/labelUsernameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username Anda"
+                android:textColor="@color/wasis_pr60"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtUsernameValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@username"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE" />
+
+            <!-- Email -->
+            <TextView
+                android:id="@+id/labelEmailView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Email Anda"
+                android:textColor="@color/wasis_pr60"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtEmailValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="username@gmail.com"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE" />
+
+            <!-- Password -->
+            <TextView
+                android:id="@+id/labelPasswordView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Kata Sandi"
+                android:textColor="@color/wasis_pr60"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtPasswordValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="********************"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE" />
+
+            <!-- Buttons view mode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <Button
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:backgroundTint="@color/wasis_pr60"
+                    android:text="Edit Profil"
+                    android:textAllCaps="false"
+                    android:textColor="@color/wasis_nt80" />
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="12dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:backgroundTint="#EEF0E8"
+                    android:text="Logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/wasis_pr60" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- MODE EDIT -->
+        <LinearLayout
+            android:id="@+id/editContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Title sama -->
+            <TextView
+                android:id="@+id/txtProfileTitleEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Edit Profil"
+                android:textColor="@color/wasis_pr80"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Avatar -->
+            <ImageView
+                android:id="@+id/imgAvatarEdit"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@android:drawable/ic_menu_myplaces"
+                app:tint="@android:color/black" />
+
+            <!-- Ganti foto -->
+            <Button
+                android:id="@+id/btnChangePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/wasis_pr60"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="Ganti Foto"
+                android:textAllCaps="false"
+                android:textColor="@color/wasis_nt80" />
+
+            <!-- Username -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Username Anda"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:backgroundTint="#E0E0E0"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#B0B0B0"
+                android:hint="@username" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Email Anda"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:backgroundTint="#E0E0E0"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#B0B0B0"
+                android:hint="username@gmail.com" />
+
+            <!-- Password -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Kata Sandi"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:backgroundTint="#E0E0E0"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#B0B0B0"
+                android:hint="********************" />
+
+            <!-- Buttons edit mode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="28dp">
+
+                <Button
+                    android:id="@+id/btnSaveProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:backgroundTint="@color/wasis_pr60"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="Simpan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/wasis_nt80" />
+
+                <Button
+                    android:id="@+id/btnCancelProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="12dp"
+                    android:backgroundTint="#EEF0E8"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="Batal"
+                    android:textAllCaps="false"
+                    android:textColor="@color/wasis_pr60" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

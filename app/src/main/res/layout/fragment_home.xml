@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wasis_pr00">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@color/wasis_pr60"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SiWASIP"
+                android:textColor="@color/wasis_nt80"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtHeaderSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Arsip Dokumen Warga Anom Siwalan-Sentolo."
+                android:textColor="@color/wasis_nt80"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- KPI -->
+        <LinearLayout
+            android:id="@+id/layoutKpiContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Total Dokumen -->
+            <LinearLayout
+                android:id="@+id/cardTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:elevation="2dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/bg_kpi">
+
+                <TextView
+                    android:id="@+id/txtTotalLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txtTotalValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="0 dokumen"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <!-- Terakhir diunggah -->
+            <LinearLayout
+                android:id="@+id/cardLast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:elevation="2dp"
+                android:background="@drawable/bg_kpi">
+
+                <TextView
+                    android:id="@+id/txtLastLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terakhir diunggah"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txtLastValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="-"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tabel -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="ifContentScrolls"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header Tabel -->
+                <LinearLayout
+                    android:id="@+id/layoutTableHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#F4F6EE"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <!-- No -->
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="No"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#444444"
+                        android:textSize="13sp" />
+
+                    <!-- Judul -->
+                    <TextView
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Judul"
+                        android:textStyle="bold"
+                        android:textColor="#444444"
+                        android:textSize="13sp" />
+
+                    <!-- Tanggal -->
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Tanggal"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#444444"
+                        android:textSize="13sp" />
+
+                    <!-- Keterangan -->
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Keterangan"
+                        android:textStyle="bold"
+                        android:textColor="#444444"
+                        android:textSize="13sp" />
+
+                    <!-- Aksi -->
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Aksi"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="#444444"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- LIST ROWS -->
+                <LinearLayout
+                    android:id="@+id/layoutRows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Empty state -->
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Tidak ada dokumen."
+            android:textColor="#777777"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

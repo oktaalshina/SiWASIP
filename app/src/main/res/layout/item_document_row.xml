@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/wasis_nt80"
+    android:orientation="horizontal">
+
+    <!-- No -->
+    <TextView
+        android:id="@+id/txtRowNumber"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#555555"
+        android:textSize="13sp" />
+
+    <!-- Judul -->
+    <TextView
+        android:id="@+id/txtRowTitle"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Judul Dokumen"
+        android:textColor="#222222"
+        android:textSize="14sp" />
+
+    <!-- Tanggal -->
+    <TextView
+        android:id="@+id/txtRowDate"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="13/09/2025"
+        android:textColor="#444444"
+        android:textSize="13sp" />
+
+    <!-- Keterangan -->
+    <TextView
+        android:id="@+id/txtRowDescription"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="-"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+
+    <!-- Aksi -->
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnView"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bg_circle_action"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_menu_view"
+            app:tint="@color/wasis_nt80"
+            android:contentDescription="Lihat" />
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_circle_action"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="@color/wasis_nt80"
+            android:contentDescription="Hapus" />
+
+        <ImageButton
+            android:id="@+id/btnDownload"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/bg_circle_action"
+            android:padding="6dp"
+            android:src="@android:drawable/stat_sys_download_done"
+            app:tint="@color/wasis_nt80"
+            android:contentDescription="Download" />
+    </LinearLayout>
+
+</LinearLayout>

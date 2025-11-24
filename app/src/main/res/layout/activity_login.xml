@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgLogoLogin"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/txtLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:text="Login"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/txtLoginSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:text="Masuk untuk melanjutkan pengelolaan dokumen WASIS."
+            android:textSize="14sp"
+            android:textColor="#666666" />
+
+        <TextView
+            android:id="@+id/txtLabelEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Username/Email"
+            android:textSize="14sp"
+            android:textColor="#222222" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@android:drawable/edit_text"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:hint="Masukkan username/email..." />
+
+        <TextView
+            android:id="@+id/txtLabelPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Kata Sandi"
+            android:textSize="14sp"
+            android:textColor="#222222" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:hint="Masukkan kata sandi..."
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="24dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:backgroundTint="#6E8649"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+</ScrollView>

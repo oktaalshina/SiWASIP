@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Active -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/wasis_pr60" />
+        </shape>
+    </item>
+
+    <!-- Inactive-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/wasis_nt80" />
+        </shape>
+    </item>
+
+</selector>

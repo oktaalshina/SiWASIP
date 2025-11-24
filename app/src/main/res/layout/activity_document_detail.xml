@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/wasis_pr00">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wasis_pr60"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SiWASIP"
+            android:textColor="@color/wasis_nt80"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Arsip Dokumen Pemuda Desa Siwalan"
+            android:textColor="@color/wasis_nt80"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txtDetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Judul : -"
+            android:textColor="#111111"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDetailDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Tanggal Unggah : -"
+            android:textColor="#333333"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Webview-->
+    <WebView
+        android:id="@+id/webViewDocument"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Button back -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnBackToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Kembali ke beranda"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/wasis_pr60"
+            android:textColor="@color/wasis_nt80" />
+    </LinearLayout>
+
+</LinearLayout>

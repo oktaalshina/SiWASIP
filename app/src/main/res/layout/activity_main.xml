@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
+    <!-- Area konten fragment -->
     <FrameLayout
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="64dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/wasis_pr00" />
 
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_gravity="bottom"
         android:background="@color/wasis_nt80"
-        android:paddingTop="6dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp"
         android:clipToPadding="false"
 
         app:menu="@menu/menu_bottom_nav"
@@ -28,5 +30,4 @@
         app:itemTextColor="@color/bottom_nav_text_selector"
         app:itemRippleColor="@color/bottom_nav_ripple"
         app:labelVisibilityMode="labeled" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
