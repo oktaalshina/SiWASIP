@@ -5,4 +5,28 @@
         <item name="android:width">0dp</item>
         <item name="android:height">0dp</item>
     </style>
+    <style name="BottomNav.M2" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/Siwasip.BottomNav.NoIndicator</item>
+    </style>
+    <style name="Siwasip.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Warna border -->
+        <item name="boxStrokeColor">#6E8649</item>
+
+        <!-- Warna hint (floating label) -->
+        <item name="hintTextColor">#6E8649</item>
+
+        <!-- Warna placeholder (hint di dalam) -->
+        <item name="android:textColorHint">#888888</item>
+
+        <!-- Warna teks yg diketik -->
+        <item name="android:textColor">#000000</item>
+
+        <!-- Warna ikon end / start -->
+        <item name="endIconMode">none</item>
+        <item name="startIconTint">#6E8649</item>
+
+        <!-- Warna box background -->
+        <item name="boxBackgroundColor">#FFFFFF</item>
+    </style>
+
 </resources>
