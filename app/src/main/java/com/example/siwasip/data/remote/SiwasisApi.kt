@@ -4,6 +4,7 @@ import com.example.siwasip.data.model.BasicResponse
 import com.example.siwasip.data.model.DocumentListResponse
 import com.example.siwasip.data.model.LoginRequest
 import com.example.siwasip.data.model.LoginResponse
+import com.example.siwasip.data.model.ProfileData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -64,5 +65,27 @@ interface SiwasisApi {
     suspend fun deleteDocument(
         @Header("Authorization") auth: String,
         @Path("id") id: Int
+    ): BasicResponse
+
+    @GET("profile")
+    suspend fun getProfile(
+        @Header("Authorization") auth: String
+    ): ProfileData // Perlu definisi ProfileData di DocumentModel
+
+    @Multipart
+    @POST("profile")
+    suspend fun updateProfile(
+        @Header("Authorization") auth: String,
+        @Part("_method") method: RequestBody,
+        @Part("username") username: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("password") password: RequestBody?,
+        @Part("password_confirmation") passwordConfirmation: RequestBody?,
+        @Part("photo_url") photo_url: MultipartBody.Part?
+    ): BasicResponse
+
+    @POST("logout")
+    suspend fun logout(
+        @Header("Authorization") auth: String
     ): BasicResponse
 }

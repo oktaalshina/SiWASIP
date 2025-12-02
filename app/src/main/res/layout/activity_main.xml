@@ -23,7 +23,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="8dp"
         android:clipToPadding="false"
-
+        style="@style/BottomNav.M2"
         app:menu="@menu/menu_bottom_nav"
         app:itemBackground="@drawable/bottom_nav_item_background"
         app:itemIconTint="@color/bottom_nav_icon_tint"

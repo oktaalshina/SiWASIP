@@ -15,7 +15,7 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- MATIIN indikator ungu BottomNavigationView bawaan M3 -->
-        <item name="bottomNavigationStyle">@style/Siwasip.BottomNavigation</item>
+        <item name="bottomNavigationStyle">@style/BottomNav.M2</item>
     </style>
 
     <!-- Custom style untuk BottomNavigationView -->

@@ -1,20 +1,32 @@
 package com.example.siwasip.ui.main.profile
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.siwasip.R
 import com.example.siwasip.data.local.Prefs
+import com.example.siwasip.data.model.ProfileData
+import com.example.siwasip.data.repository.ProfileRepository
 import com.example.siwasip.ui.auth.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,33 +43,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-
-// ----- Data dari /profile -----
-data class ProfileData(
-    val id: Int?,
-    val name: String?,
-    val username: String?,
-    val email: String?
-)
-
-// ----- Retrofit API -----
-private interface ProfileApi {
-    @GET("profile")
-    suspend fun getProfile(): Response<ProfileData>
-
-    @Multipart
-    @POST("profile")
-    suspend fun updateProfile(
-        @Part("_method") method: RequestBody,
-        @Part("username") username: RequestBody,
-        @Part("email") email: RequestBody,
-        @Part("password") password: RequestBody?,
-        @Part("password_confirmation") passwordConfirmation: RequestBody?
-    ): Response<ResponseBody>
-
-    @POST("logout")
-    suspend fun logout(): Response<ResponseBody>
-}
+import java.io.File
 
 class ProfileFragment : Fragment() {
 
@@ -80,35 +66,33 @@ class ProfileFragment : Fragment() {
     private lateinit var btnCancel: Button
     private lateinit var btnChangePhoto: Button
 
+    private lateinit var imgAvatarView: ImageView
+
+    private lateinit var imgAvatarEdit: ImageView
+
+    private var selectedPhotoUri: Uri? = null
+
     private var currentProfile: ProfileData? = null
     private var isEditing: Boolean = false
 
-    private val api: ProfileApi by lazy { createApi() }
+    private val profileRepository: ProfileRepository by lazy {
+        ProfileRepository { Prefs.authToken }
+    }
+    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            selectedPhotoUri = it
+            imgAvatarEdit.setImageURI(it) // Tampilkan gambar yang dipilih
+        }
+    }
 
-    // Retrofit
-    private fun createApi(): ProfileApi {
-        val client = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val original = chain.request()
-                val builder = original.newBuilder()
-                    .header("Accept", "application/json")
-
-                val token = Prefs.authToken
-                if (!token.isNullOrBlank()) {
-                    builder.header("Authorization", "Bearer $token")
-                }
-
-                chain.proceed(builder.build())
-            }
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://siwasis.novarentech.web.id/api/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        return retrofit.create(ProfileApi::class.java)
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            pickImage.launch("image/*") // Lanjutkan memilih gambar jika izin diberikan
+        } else {
+            Toast.makeText(requireContext(), "Izin penyimpanan diperlukan untuk memilih foto.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // ----- onCreateView -----
@@ -129,6 +113,7 @@ class ProfileFragment : Fragment() {
         txtPasswordValue = view.findViewById(R.id.txtPasswordValue)
         btnEditProfile = view.findViewById(R.id.btnEditProfile)
         btnLogout = view.findViewById(R.id.btnLogout)
+        imgAvatarView = view.findViewById(R.id.imgAvatarView)
 
         // edit mode
         edtUsername = view.findViewById(R.id.edtUsername)
@@ -137,6 +122,7 @@ class ProfileFragment : Fragment() {
         btnSave = view.findViewById(R.id.btnSaveProfile)
         btnCancel = view.findViewById(R.id.btnCancelProfile)
         btnChangePhoto = view.findViewById(R.id.btnChangePhoto)
+        imgAvatarEdit = view.findViewById(R.id.imgAvatarEdit)
 
         setupListeners()
         setEditing(false) // mulai dari mode lihat
@@ -149,11 +135,20 @@ class ProfileFragment : Fragment() {
     // ----- Listener tombol -----
     private fun setupListeners() {
         btnChangePhoto.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Ganti foto belum diimplementasikan.",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                // Android 13 (API 33) ke atas
+                pickImage.launch("image/*")
+            } else if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                // Android < 13 dengan izin sudah diberikan
+                pickImage.launch("image/*")
+            } else {
+                // Android < 13, minta izin
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
         }
 
         btnEditProfile.setOnClickListener {
@@ -191,6 +186,7 @@ class ProfileFragment : Fragment() {
         if (edit) {
             viewContainer.visibility = View.GONE
             editContainer.visibility = View.VISIBLE
+            selectedPhotoUri = null
         } else {
             viewContainer.visibility = View.VISIBLE
             editContainer.visibility = View.GONE
@@ -207,14 +203,17 @@ class ProfileFragment : Fragment() {
                 "Session habis, silakan login ulang.",
                 Toast.LENGTH_LONG
             ).show()
+
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
             return
         }
 
         lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {
                 try {
-                    val res = api.getProfile()
-                    if (res.isSuccessful) res.body() else null
+                    profileRepository.getProfile()
                 } catch (e: Exception) {
                     null
                 }
@@ -245,6 +244,14 @@ class ProfileFragment : Fragment() {
             if (email.isNotBlank()) email else "username@gmail.com"
         txtPasswordValue.text = "********************"
 
+        profile.photo_url?.let { url ->
+            Glide.with(this).load(url).placeholder(R.drawable.ic_profile_active).error(R.drawable.ic_profile_active).circleCrop().into(imgAvatarView)
+            Glide.with(this).load(url).placeholder(R.drawable.ic_profile_active).error(R.drawable.ic_profile_active).circleCrop().into(imgAvatarEdit)
+        } ?: run {
+            imgAvatarView.setImageResource(R.drawable.ic_profile_active)
+            imgAvatarEdit.setImageResource(R.drawable.ic_profile_active)
+        }
+
         // edit mode
         bindToEdit(profile)
     }
@@ -254,6 +261,17 @@ class ProfileFragment : Fragment() {
         edtEmail.setText(profile.email ?: "")
         edtPassword.setText("")
         edtPassword.hint = "********************"
+
+        profile.photo_url?.let { url ->
+            Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.ic_profile_active)
+                .error(R.drawable.ic_profile_active)
+                .circleCrop()
+                .into(imgAvatarEdit)
+        } ?: run {
+            imgAvatarEdit.setImageResource(R.drawable.ic_profile_active)
+        }
     }
 
     //   Simpan profile
@@ -289,33 +307,20 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             val ok = withContext(Dispatchers.IO) {
                 try {
-                    val textPlain = "text/plain".toMediaTypeOrNull()
-
-                    val methodBody = "PUT".toRequestBody(textPlain)
-                    val usernameBody = username.toRequestBody(textPlain)
-                    val emailBody = email.toRequestBody(textPlain)
-
-                    val passwordBody: RequestBody?
-                    val passwordConfBody: RequestBody?
-                    if (password.isNotBlank()) {
-                        val pw = password.toRequestBody(textPlain)
-                        passwordBody = pw
-                        passwordConfBody = pw
-                    } else {
-                        passwordBody = null
-                        passwordConfBody = null
+                    // BARU: Dapatkan file dari selectedPhotoUri
+                    val imageFile: File? = selectedPhotoUri?.let { uri ->
+                        uri.getPath(requireContext())?.let { File(it) }
                     }
 
-                    val res = api.updateProfile(
-                        method = methodBody,
-                        username = usernameBody,
-                        email = emailBody,
-                        password = passwordBody,
-                        passwordConfirmation = passwordConfBody
+                    val res = profileRepository.updateProfile(
+                        username = username,
+                        email = email,
+                        password = password.takeIf { it.isNotBlank() },
+                        imageFile = imageFile // BARU: Kirim file avatar
                     )
-
-                    res.isSuccessful
+                    res.success == true
                 } catch (e: Exception) {
+                    e.printStackTrace() // Log error untuk debugging
                     false
                 }
             }
@@ -358,7 +363,7 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    api.logout()
+                    profileRepository.logout()
                 } catch (_: Exception) {
 
                 }
@@ -379,5 +384,34 @@ class ProfileFragment : Fragment() {
                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+    }
+
+    fun Uri.getPath(context: Context): String? {
+        var result: String? = null
+        if (ContentResolver.SCHEME_FILE == scheme) {
+            result = path
+        } else if (ContentResolver.SCHEME_CONTENT == scheme) {
+            val cursor = context.contentResolver.query(this, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val fileName = it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+                    // Anda mungkin perlu logika yang lebih canggih untuk mendapatkan path absolut
+                    // Jika ini tidak cukup, Anda bisa menyimpan file ke cache dan mendapatkan path-nya
+                    val cacheDir = context.cacheDir
+                    val file = File(cacheDir, fileName)
+                    try {
+                        context.contentResolver.openInputStream(this)?.use { inputStream ->
+                            file.outputStream().use { outputStream ->
+                                inputStream.copyTo(outputStream)
+                            }
+                        }
+                        result = file.absolutePath
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+        return result
     }
 }
