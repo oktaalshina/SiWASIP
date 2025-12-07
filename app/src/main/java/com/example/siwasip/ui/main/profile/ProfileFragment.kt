@@ -31,18 +31,6 @@ import com.example.siwasip.ui.auth.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
 import java.io.File
 
 class ProfileFragment : Fragment() {
@@ -155,7 +143,7 @@ class ProfileFragment : Fragment() {
             // Masuk mode edit, isi field dari currentProfile
             val profile = currentProfile
             if (profile != null) {
-                edtUsername.setText(profile.username ?: "")
+                edtUsername.setText(profile.name ?: "")
                 edtEmail.setText(profile.email ?: "")
             } else {
                 edtUsername.setText(txtUsernameValue.text.toString().removePrefix("@"))
@@ -235,16 +223,16 @@ class ProfileFragment : Fragment() {
     // Update tampilan view-mode dan edit-mode
     private fun bindProfile(profile: ProfileData) {
         // view mode
-        val username = profile.username ?: ""
+        val username = profile.name ?: ""
         val email = profile.email ?: ""
 
         txtUsernameValue.text =
-            if (username.isNotBlank()) "@$username" else "@username"
+            if (username.isNotBlank()) "$username" else "@username"
         txtEmailValue.text =
             if (email.isNotBlank()) email else "username@gmail.com"
         txtPasswordValue.text = "********************"
 
-        profile.photo_url?.let { url ->
+        profile.photoUrl?.let { url ->
             Glide.with(this).load(url).placeholder(R.drawable.ic_profile_active).error(R.drawable.ic_profile_active).circleCrop().into(imgAvatarView)
             Glide.with(this).load(url).placeholder(R.drawable.ic_profile_active).error(R.drawable.ic_profile_active).circleCrop().into(imgAvatarEdit)
         } ?: run {
@@ -257,12 +245,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun bindToEdit(profile: ProfileData) {
-        edtUsername.setText(profile.username ?: "")
+        edtUsername.setText(profile.name ?: "")
         edtEmail.setText(profile.email ?: "")
         edtPassword.setText("")
         edtPassword.hint = "********************"
 
-        profile.photo_url?.let { url ->
+        profile.photoUrl?.let { url ->
             Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.ic_profile_active)
@@ -288,11 +276,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun performSave() {
-        val username = edtUsername.text.toString().trim()
+        val name = edtUsername.text.toString().trim()
         val email = edtEmail.text.toString().trim()
         val password = edtPassword.text.toString()
 
-        if (username.isBlank() || email.isBlank()) {
+        if (name.isBlank() || email.isBlank()) {
             Toast.makeText(
                 requireContext(),
                 "Username dan email wajib diisi.",
@@ -313,12 +301,14 @@ class ProfileFragment : Fragment() {
                     }
 
                     val res = profileRepository.updateProfile(
-                        username = username,
+                        name = name,
                         email = email,
                         password = password.takeIf { it.isNotBlank() },
                         imageFile = imageFile // BARU: Kirim file avatar
                     )
-                    res.success == true
+                    res.success == true || res.message?.contains("berhasil", ignoreCase = true) == true
+
+
                 } catch (e: Exception) {
                     e.printStackTrace() // Log error untuk debugging
                     false

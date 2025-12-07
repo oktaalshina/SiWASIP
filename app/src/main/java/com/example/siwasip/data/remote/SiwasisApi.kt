@@ -5,6 +5,7 @@ import com.example.siwasip.data.model.DocumentListResponse
 import com.example.siwasip.data.model.LoginRequest
 import com.example.siwasip.data.model.LoginResponse
 import com.example.siwasip.data.model.ProfileData
+import com.example.siwasip.data.model.ProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -16,6 +17,7 @@ import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Header
+import retrofit2.http.PUT
 
 interface SiwasisApi {
 
@@ -70,18 +72,17 @@ interface SiwasisApi {
     @GET("profile")
     suspend fun getProfile(
         @Header("Authorization") auth: String
-    ): ProfileData // Perlu definisi ProfileData di DocumentModel
+    ): ProfileResponse
 
     @Multipart
     @POST("profile")
     suspend fun updateProfile(
         @Header("Authorization") auth: String,
-        @Part("_method") method: RequestBody,
-        @Part("username") username: RequestBody,
+        @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody?,
         @Part("password_confirmation") passwordConfirmation: RequestBody?,
-        @Part("photo_url") photo_url: MultipartBody.Part?
+        @Part photo: MultipartBody.Part?
     ): BasicResponse
 
     @POST("logout")

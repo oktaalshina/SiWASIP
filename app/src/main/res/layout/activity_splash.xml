@@ -6,41 +6,43 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <ImageView
-        android:id="@+id/imgLogo"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:src="@mipmap/ic_launcher_foreground"
-        android:contentDescription="@string/app_name"
+    <LinearLayout
+        android:id="@+id/centerGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/txtTitle" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SiWASIP"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:textColor="#34421E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgLogo"
-        app:layout_constraintBottom_toTopOf="@id/txtSubtitle" />
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:src="@mipmap/ic_launcher_foreground"
+            android:contentDescription="@string/app_name" />
 
-    <TextView
-        android:id="@+id/txtSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Arsip Dokumen Warga Anom Siwalan"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTitle"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SiWASIP"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="#34421E"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:id="@+id/txtSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arsip Dokumen Warga Anom Siwalan"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
