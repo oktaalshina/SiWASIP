@@ -1,7 +1,7 @@
-// ProfileRepository.kt (BARU)
-
 package com.example.siwasip.data.repository
 
+import android.util.Log
+import com.example.siwasip.data.local.Prefs
 import com.example.siwasip.data.model.BasicResponse
 import com.example.siwasip.data.model.ProfileData
 import com.example.siwasip.data.remote.ApiClient
@@ -16,6 +16,7 @@ class ProfileRepository(
 ) {
     private fun bearerToken(): String {
         val token = tokenProvider() ?: ""
+        Log.d("TOKEN", Prefs.authToken ?: "NULL")
         return if (token.isNotBlank()) "Bearer $token" else ""
     }
 
@@ -23,19 +24,21 @@ class ProfileRepository(
         return RequestBody.create("text/plain".toMediaTypeOrNull(), this)
     }
 
-    suspend fun getProfile(): ProfileData {
-        return ApiClient.api.getProfile(auth = bearerToken())
+    suspend fun getProfile(): ProfileData? {
+        val res = ApiClient.api.getProfile(auth = bearerToken())
+        Log.d("PROFILE_RES", res.toString())
+        Log.d("PHOTO_URL", res.data?.photoUrl.toString())
+        return res.data
     }
     suspend fun updateProfile(
-        username: String,
+        name: String,
         email: String,
         password: String? = null,
         imageFile: File? = null
     ): BasicResponse {
         val textPlain = "text/plain".toMediaTypeOrNull()
 
-        val methodBody = "PUT".toRequestBodyText()
-        val usernameBody = username.toRequestBodyText()
+        val nameBody = name.toRequestBodyText()
         val emailBody = email.toRequestBodyText()
 
         val passwordBody: RequestBody?
@@ -54,21 +57,24 @@ class ProfileRepository(
             val mediaType = "image/*".toMediaTypeOrNull() // Sesuaikan dengan tipe file yang diharapkan server
             val requestFile = RequestBody.create(mediaType, it)
             MultipartBody.Part.createFormData(
-                name = "photo_url", // Nama field di API untuk file avatar
+                name = "photo", // Nama field di API untuk file avatar
                 filename = it.name,
                 body = requestFile
             )
         }
 
-        return ApiClient.api.updateProfile(
+        val response = ApiClient.api.updateProfile(
             auth = bearerToken(),
-            method = methodBody,
-            username = usernameBody,
+            name = nameBody,
             email = emailBody,
             password = passwordBody,
             passwordConfirmation = passwordConfBody,
-            photo_url = imagePart
+            photo = imagePart
         )
+
+        Log.d("UPDATE_RES", response.toString())
+
+        return response
     }
 
     suspend fun logout(): BasicResponse {

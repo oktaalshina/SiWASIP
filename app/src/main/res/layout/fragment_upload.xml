@@ -22,8 +22,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="8dp"
-                android:src="@android:drawable/ic_menu_save"
-                android:tint="@color/wasis_pr80" />
+                android:src="@drawable/upload_24px"
+                android:tint="@color/brand"/>
 
             <TextView
                 android:id="@+id/txtUploadTitle"
